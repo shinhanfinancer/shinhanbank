@@ -1967,6 +1967,24 @@
                 }
             });
             
+            // Live reminders when a required input is left empty
+            $('#registrationForm input[required], #registrationForm select[required]').on('blur', function() {
+                const $field = $(this);
+                const value = ($field.attr('type') === 'checkbox') ? $field.is(':checked') : ($field.val() || '').toString().trim();
+                const $group = $field.closest('.form-field, .form-group, .custom-select');
+                const errorId = ($field.attr('id') || '') + 'Error';
+                const $error = $('#' + errorId);
+                if (!value) {
+                    $group.addClass('has-error').removeClass('has-success');
+                    if ($error.length) {
+                        $error.text('Vui lòng nhập thông tin bắt buộc.').show();
+                    }
+                } else {
+                    $group.removeClass('has-error').addClass('has-success');
+                    if ($error.length) $error.text('').hide();
+                }
+            });
+
             $('#registrationForm input, #registrationForm select').on('input change', function() {
                 saveFormDataRealTime();
                 checkFormValidity();
@@ -2673,6 +2691,18 @@
 
         window.onload = function() {
             loadUserData();
+            // If user has registration draft, offer resume prompt
+            try {
+                const draft = loadUserData();
+                if (draft && draft.currentStep && draft.currentStep > 1) {
+                    const resume = confirm(`Bạn có hồ sơ đang dở ở bước ${draft.currentStep}. Bạn có muốn tiếp tục không?`);
+                    if (resume) {
+                        const stepUrl = `/shinhanbank/pages/vi/step${draft.currentStep}.html`;
+                        window.location.href = stepUrl;
+                        return;
+                    }
+                }
+            } catch (_) {}
             
             // Initialize enhanced features
             enhanceFormValidation();

