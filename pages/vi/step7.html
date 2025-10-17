@@ -198,10 +198,9 @@
             text-decoration: none;
             transition: color 0.3s;
         }
-        .footer-links a:hover {
-            color: var(--accent-color);
+        .footer-links a            flex-wrap: wrap;
         }
-        .button-group {
+        @media (max-width: 767px) {n-group {
             display: flex;
             justify-content: center;
             gap: 15px;
@@ -260,7 +259,7 @@
     <hr class="divider-blue" style="margin: 0;">
 
     <div class="container">
-        <ul class="nav-tabs">
+        <ul class="nav nav-tabs">
             <li class="nav-item">
                 <a class="nav-link" href="/shinhanbank/pages/vi/step1.html">1. Nhập thông tin</a>
             </li>
@@ -298,12 +297,12 @@
             <a href="https://shinhan.com.vn/vi/page/sitemap-2.html">Sitemap</a> |
             <a href="/shinhanbank/pages/vi/dieu-khoan-su-dung.html">Trung tâm bảo mật</a> |
             <a href="https://online.shinhan.com.vn/global.shinhan">Demo Ngân hàng trực tuyến</a> |
-            <a href="https://zalo.me/1169203598452254627" hệ</a> |
+            <a href="https://chatbot.zalo.me/ref/3932037504673339016?id=kichhoattuvan">Liên hệ</a> |
             <a href="/shinhanbank/pages/vi/global-shinhan.html">Trang Global Portal</a> |
             <a href="/shinhanbank/pages/vi/gioi-thieu.html">Giới Thiệu</a>
         </div>
         <p class="mt-3">Trung tâm bảo mật | Demo Ngân hàng trực tuyến | Liên hệ | Trang Global Portal | Giới Thiệu</p>
-        <p>© 2015 SHINHAN BANK VIETNAM ALL RIGHTS RESERVED.</p>
+        <p>© 2025 SHINHAN BANK VIETNAM ALL RIGHTS RESERVED.</p>
     </div>
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -462,16 +461,7 @@
                     canvas.classList.remove('loading');
                     canvas.width = 1240;
                     canvas.height = 1754;
-                    ctx.drawImage(img, 0, 0, 1240, 1754);
-                    canvasFields.forEach(field => {
-                        const value = field.value || "";
-                        if (value && field.x >= 0 && field.y >= 0 && field.x < canvas.width && field.y < canvas.height) {
-                            ctx.font = field.font;
-                            ctx.fillStyle = field.color;
-                            ctx.fillText(value, field.x, field.y);
-                        }
-                    });
-                    $('#formError').text('Đã sử dụng hình ảnh mặc định do lỗi tải nguồn chính.').show();
+                    ctx.drawImage(img, 0, 0, 1240, 17                    $('#formError').text('Đã sử dụng hình ảnh mặc định do lỗi tải nguồn chính.').show();
                 };
                 img.onerror = function() {
                     canvas.classList.remove('loading');
@@ -484,11 +474,16 @@
         }
 
         const canvasFields = [
-            { value: "", x: 423, y: 322, font: "23px Arial bold", color: "#000000" }, // accountNumber
-            { value: "", x: 429, y: 354, font: "23px Arial bold", color: "#000000" }, // fullName
-            { value: "", x: 423, y: 390, font: "23px Arial bold", color: "#000000" }, // bankName
-            { value: "", x: 429, y: 444, font: "23px Arial bold", color: "#000000" }, // fullName
-            { value: "", x: 423, y: 487, font: "23px Arial bold", color: "#000000" }, // cccd
+            { value: "", x: 423, y: 322, font: "bold 23px Arial", color: "#000000" }, // accountNumber
+            { value: "", x: 429, y: 354, font: "bold 23px Arial", color: "#000000" }, // fullName
+            { value: "", x: 423, y: 390, font: "bold 23px Arial", color: "#000000" }, // bankName
+            { value: "", x: 429, y: 444, font: "bold 23px Arial", color: "#000000" }, // fullName
+            { value: "", x: 423, y: 487, font: "bold 23px Arial", color: "#000000" }, // cccd
+            { value: "", x: 707, y: 487, font: "bold 23px Arial", color: "#000000" }, // idIssueDate
+            { value: "", x: 952, y: 487, font: "bold 23px Arial", color: "#000000" }, // idIssuePlace
+            { value: generateRandomCode("SHB"), x: 211, y: 60, font: "bold 27px Arial", color: "#000000" }, // loanCode
+            { value: generateRandomCode("SHB"), x: 211, y: 97, font: "bold 27px Arial", color: "#000000" }  // loanCode
+        ];00000" }, // cccd
             { value: "", x: 707, y: 487, font: "23px Arial bold", color: "#000000" }, // idIssueDate
             { value: "", x: 952, y: 487, font: "23px Arial bold", color: "#000000" }, // idIssuePlace
             { value: generateRandomCode("SHB"), x: 211, y: 60, font: "27px Arial bold", color: "#000000" }, // loanCode
@@ -519,7 +514,7 @@
             canvasFields[7].value = userData.loanCode || generateRandomCode("SHB");
             canvasFields[8].value = userData.loanCode || generateRandomCode("SHB");
 
-            renderCanvas('disbursementCanvas', '/shinhanbank/assets/img/dieukiengiayngan.png', '/shinhanbank/assets/img/disbursement_image.png');
+            renderCanvas('disbursementCanvas', '/shinhanbank/assets/img/dieukiengiayngan.png', '../../assets/img/dieukiengiayngan.png');
             userData.currentStep = 7;
             saveToLocalStorage();
         };

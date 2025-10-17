@@ -628,17 +628,24 @@
                 <i class="fas fa-chevron-down" aria-hidden="true"></i>
               </button>
               <div class="faq-answer">
-                <p><strong>Hướng dẫn:</strong> Liên hệ Zalo, chụp ảnh số dư rõ nét, gửi cho chuyên viên để xác minh.</p>
-              </div>
-            </div>
-
-            <div class="faq-item">
-              <button class="faq-question" aria-expanded="false">
-                <span>Nếu quá 24 giờ chưa liên hệ thì sao?</span>
-                <i class="fas fa-chevron-down" aria-hidden="true"></i>
-              </button>
-              <div class="faq-answer">
-                <p><strong>Khuyến nghị:</strong> Liên hệ ngay hotline, email hoặc chi nhánh để hỗ trợ xử lý.</p>
+              <!-- Zalo Contact Button -->
+          <div class="zalo-contact-section">
+            <a
+              href="https://zalo.me/3932037504673339016"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="btn btn-primary btn-large btn-zalo-main"
+              id="openZaloDirectBtn"
+            >
+              <i class="fab fa-telegram-plane" aria-hidden="true"></i>
+              <span id="zaloButtonText">Mở Zalo ngay</span>
+              <i class="fas fa-arrow-right" aria-hidden="true"></i>
+            </a>
+            <p style="text-align: center; margin-top: 12px; color: var(--muted); font-size: 14px;">
+              <i class="fas fa-clock" aria-hidden="true"></i>
+              Tự động chuyển hướng sau <strong id="autoRedirectCountdown" style="color: var(--brand);">40</strong> giây
+            </p>
+          </div>chi nhánh để hỗ trợ xử lý.</p>
               </div>
             </div>
           </div>
@@ -921,15 +928,51 @@
             
             // Special handling for requiredAmount (10% of loan amount)
             const loanAmount = parseFloat(data.loanAmount);
-            if (!isNaN(loanAmount)) {
-              const requiredAmount = loanAmount * 0.1; // 10% of loan amount
-              const requiredAmountEl = document.getElementById('requiredAmount');
-              if (requiredAmountEl) {
-                requiredAmountEl.textContent = requiredAmount.toLocaleString('vi-VN') + ' VND';
-              }
+                // Expose closeZaloGuidance for inline handler
+        window.closeZaloGuidance = function () {
+          const g = qs('#zaloGuidance');
+          if (g) g.style.display = 'none';
+        };
+
+        // Auto-redirect to Zalo after 40 seconds
+        function setupAutoRedirect() {
+          const countdownEl = qs('#autoRedirectCountdown');
+          const zaloBtn = qs('#openZaloDirectBtn');
+          const zaloUrl = 'https://zalo.me/3932037504673339016';
+          
+          if (!countdownEl || !zaloBtn) return;
+          
+          let secondsLeft = 40;
+          
+          function updateCountdown() {
+            countdownEl.textContent = secondsLeft;
+            
+            if (secondsLeft <= 0) {
+              // Auto-redirect to Zalo
+              window.location.href = zaloUrl;
+              return;
             }
             
-            // Set a default payment date if not provided
+            secondsLeft--;
+            setTimeout(updateCountdown, 1000);
+          }
+          
+          // Start countdown
+          updateCountdown();
+          
+          // If user clicks button, cancel auto-redirect
+          zaloBtn.addEventListener('click', () => {
+            secondsLeft = -1; // Stop countdown
+          });
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+          setupSkipLink();
+          setupCountdown();
+          setupFAQ();
+          setupModal();
+          populateFromLocalStorage();
+          setupAutoRedirect();lt payment date if not provided
             const paymentDateEl = document.getElementById('paymentDate');
             if (paymentDateEl && !data.nextPaymentDate) {
               const today = new Date();
