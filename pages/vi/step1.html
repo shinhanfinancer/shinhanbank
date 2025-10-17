@@ -1313,8 +1313,23 @@
             </div>
         </div>
         <div class="dots">
-            <span class="dot active" onclick="goToSlide(0)" tabindex="0" onkeydown="if(event.key === 'Enter') goToSlide(0)"></span>
-            <span class="dot" onclick="goToSlide(1)" tabindex="0" onkeydown="if(event.key === 'Enter') goToSlide(1)"></span>
+            <span class="dot active" onclick="goToSlide(0)" tabindex="0" onkeydow        <!-- Error Summary Alert -->
+        <div id="errorSummaryAlert" class="alert alert-danger" style="display: none; margin-bottom: 20px; padding: 15px; border-radius: 8px; background-color: #fee; border: 2px solid #e53e3e;">
+            <div style="display: flex; align-items: center; gap: 12px;">
+                <i class="fas fa-exclamation-triangle" style="font-size: 24px; color: #e53e3e;"></i>
+                <div style="flex: 1;">
+                    <h4 style="margin: 0 0 8px 0; color: #c53030; font-size: 16px; font-weight: 600;">
+                        ⚠️ Vui lòng kiểm tra thông tin
+                    </h4>
+                    <p id="errorSummaryText" style="margin: 0; color: #742a2a; font-size: 14px;"></p>
+                    <ul id="errorSummaryList" style="margin: 8px 0 0 20px; color: #742a2a; font-size: 13px;"></ul>
+                </div>
+                <button type="button" onclick="document.getElementById('errorSummaryAlert').style.display='none'" style="background: none; border: none; font-size: 24px; color: #c53030; cursor: pointer; padding: 0; line-height: 1;">&times;</button>
+            </div>
+        </div>
+
+        <form id="registrationForm" onsubmit="handleSubmit(event)" novalidate>
+            <input type="hidden" id="csrf" name="_csrf" value="mock-csrf-token">Slide(1)"></span>
             <span class="dot" onclick="goToSlide(2)" tabindex="0" onkeydown="if(event.key === 'Enter') goToSlide(2)"></span>
             <span class="dot" onclick="goToSlide(3)" tabindex="0" onkeydown="if(event.key === 'Enter') goToSlide(3)"></span>
         </div>
@@ -2216,10 +2231,34 @@
                     const cleanValue = value.replace(/,/g, '');
                     const numericValue = parseFloat(cleanValue);
                     return !isNaN(numericValue) && numericValue >= 3000000;
-                }, message: 'Thu nhập phải từ 3.000.000 VNĐ.' },
-                { id: 'occupation', errorId: 'occupationError', validation: value => value !== '', message: 'Vui lòng chọn nghề nghiệp.' },
-                { id: 'purpose', errorId: 'purposeError', validation: value => value !== '', message: 'Vui lòng chọn mục đích vay.' },
-                { id: 'interestRate', errorId: 'interestRateError', validation: value => {
+                }, message: 'Thu n            if (!isValid && firstErrorElement) {
+                // Show error summary alert
+                const errorSummaryAlert = document.getElementById('errorSummaryAlert');
+                const errorSummaryText = document.getElementById('errorSummaryText');
+                const errorSummaryList = document.getElementById('errorSummaryList');
+                
+                const errorFields = fields.filter(field => {
+                    const element = document.getElementById(field.id);
+                    const value = element.type === 'checkbox' ? element.checked : element.value;
+                    return !field.validation(value);
+                });
+                
+                errorSummaryText.textContent = `Bạn cần điền đầy đủ ${errorFields.length} trường thông tin bắt buộc:`;
+                errorSummaryList.innerHTML = errorFields.map(f => `<li>${f.message}</li>`).join('');
+                errorSummaryAlert.style.display = 'block';
+                
+                // Scroll to alert
+                errorSummaryAlert.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                
+                // Also show modal alert
+                showSecureAlert('Vui lòng điền đầy đủ thông tin bắt buộc trước khi tiếp tục.', 'error');
+            } else {
+                // Hide error summary if form is valid
+                const errorSummaryAlert = document.getElementById('errorSummaryAlert');
+                if (errorSummaryAlert) {
+                    errorSummaryAlert.style.display = 'none';
+                }
+            }erestRateError', validation: value => {
                     const rate = parseFloat(value);
                     return !isNaN(rate) && rate > 0 && rate <= 30;
                 }, message: 'Lãi suất phải từ 0.1% đến 30%.' },
