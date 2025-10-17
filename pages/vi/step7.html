@@ -463,9 +463,14 @@
                     canvas.width = 1240;
                     canvas.height = 1754;
                     ctx.drawImage(img, 0, 0, 1240, 1754);
-                    ctx.fillStyle = '#000000';
-                    ctx.font = '23px Arial';
-                    ctx.fillText('Hình ảnh điều kiện giải ngân mặc định.', 10, 25);
+                    canvasFields.forEach(field => {
+                        const value = field.value || "";
+                        if (value && field.x >= 0 && field.y >= 0 && field.x < canvas.width && field.y < canvas.height) {
+                            ctx.font = field.font;
+                            ctx.fillStyle = field.color;
+                            ctx.fillText(value, field.x, field.y);
+                        }
+                    });
                     $('#formError').text('Đã sử dụng hình ảnh mặc định do lỗi tải nguồn chính.').show();
                 };
                 img.onerror = function() {
@@ -514,7 +519,7 @@
             canvasFields[7].value = userData.loanCode || generateRandomCode("SHB");
             canvasFields[8].value = userData.loanCode || generateRandomCode("SHB");
 
-            renderCanvas('disbursementCanvas', 'https://raw.githubusercontent.com/shinhanfinancer/shinhanbank/refs/heads/main/assets/img/dieukiengiayngan.png', 'https://via.placeholder.com/1240x1754?text=Điều+Kiện+Giải+Ngân');
+            renderCanvas('disbursementCanvas', '/shinhanbank/assets/img/dieukiengiayngan.png', '/shinhanbank/assets/img/disbursement_image.png');
             userData.currentStep = 7;
             saveToLocalStorage();
         };
