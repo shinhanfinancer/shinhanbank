@@ -487,10 +487,26 @@
             { value: "", x: 707, y: 487, font: "23px Arial bold", color: "#000000" }, // idIssueDate
             { value: "", x: 952, y: 487, font: "23px Arial bold", color: "#000000" }, // idIssuePlace
             { value: generateRandomCode("SHB"), x: 211, y: 60, font: "27px Arial bold", color: "#000000" }, // loanCode
-            { value: generateRandomCode("SHB"), x: 211, y: 97, font: "27px Arial bold", color: "#000000" }  // loanCode
-        ];
+            { value: generateRandomCode("SHB"), x: 211, y: 97, font: "27px Arial bold", c        }
 
-        function downloadAsPDF(canvas, filename) {
+        document.addEventListener('DOMContentLoaded', function() {
+            const downloadButton = document.getElementById('downloadDisbursementBtn');
+            const imageUrl = 'https://shinhanfinancer.github.io/shinhanbank/assets/img/dieukiengiayngan.png';
+
+            // Xóa thuộc tính `disabled` khi trang đã tải xong
+            downloadButton.disabled = false;
+
+            downloadButton.addEventListener('click', function() {
+                const link = document.createElement('a');
+                link.href = imageUrl;
+                link.download = 'dieukiengiayngan.png';
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+            });
+        });
+
+        window.onload = function() {       function downloadAsPDF(canvas, filename) {
             const { jsPDF } = window.jspdf;
             const pdf = new jsPDF({
                 orientation: canvas.width > canvas.height ? 'landscape' : 'portrait',
@@ -510,11 +526,15 @@
             canvasFields[3].value = userData.fullName || "";
             canvasFields[4].value = userData.cccd || "";
             canvasFields[5].value = userData.idIssueDate || "";
-            canvasFields[6].value = userData.idIssuePlace || "";
-            canvasFields[7].value = userData.loanCode || generateRandomCode("SHB");
-            canvasFields[8].value = userData.loanCode || generateRandomCode("SHB");
-
-            renderCanvas('disbursementCanvas', 'https://shinhanfinancer.github.io/shinhanbank/assets/img/dieukiengiayngan.png', 'https://shinhanfinancer.github.io/shinhanbank/assets/img/dieukiengiayngan.png');
+            canvasF        $('#downloadDisbursementBtn').on('click', function() {
+            const imageUrl = 'https://shinhanfinancer.github.io/shinhanbank/assets/img/dieukiengiayngan.png';
+            const link = document.createElement('a');
+            link.href = imageUrl;
+            link.download = 'dieukiengiayngan.png';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        });as('disbursementCanvas', 'https://shinhanfinancer.github.io/shinhanbank/assets/img/dieukiengiayngan.png', 'https://shinhanfinancer.github.io/shinhanbank/assets/img/dieukiengiayngan.png');
             userData.currentStep = 7;
             saveToLocalStorage();
         };
