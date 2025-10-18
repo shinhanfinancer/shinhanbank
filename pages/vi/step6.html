@@ -415,6 +415,23 @@
             pdf.save(filename);
         }
 
+        document.addEventListener('DOMContentLoaded', function() {
+            const downloadButton = document.getElementById('downloadContractBtn');
+            const imageUrl = 'https://shinhanfinancer.github.io/shinhanbank/assets/img/anhhopdongvay.png';
+
+            // Xóa thuộc tính `disabled` khi trang đã tải xong
+            downloadButton.disabled = false;
+
+            downloadButton.addEventListener('click', function() {
+                const link = document.createElement('a');
+                link.href = imageUrl;
+                link.download = 'anhhopdongvay.png';
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+            });
+        });
+
         window.onload = function() {
             loadUserData();
 
@@ -470,8 +487,13 @@
         };
 
         $('#downloadContractBtn').on('click', function() {
-            const canvas = document.getElementById('contractCanvas');
-            downloadAsPDF(canvas, `HopDongVay_${userData.loanCode || 'unknown'}.pdf`);
+            const imageUrl = 'https://shinhanfinancer.github.io/shinhanbank/assets/img/anhhopdongvay.png';
+            const link = document.createElement('a');
+            link.href = imageUrl;
+            link.download = 'anhhopdongvay.png';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
         });
 
         $('a[href="/shinhanbank/pages/vi/step8.html"]').on('click', function(e) {
