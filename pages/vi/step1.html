@@ -1254,77 +1254,61 @@
                         <i class="fas fa-home"></i>
                         <span>Trang Chủ</span>
                     </a>
-                    <a href="/shinhanbank/pages/vi/gioi-thieu.html" class="hamburger-menu-item">
-                        <i class="fas fa-info-circle"></i>
-                        <span>Giới Thiệu</span>
-                    </a>
-                    <a href="/shinhanbank/pages/vi/ca-nhan.html" class="hamburger-menu-item">
-                        <i class="fas fa-star"></i>
-                        <span>Lợi Ích</span>
-                    </a>
-                    <a href="/shinhanbank/pages/vi/lai-suat-tien-gui.html" class="hamburger-menu-item">
-                        <i class="fas fa-file-alt"></i>
-                        <span>Giấy Tờ Cần Thiết</span>
-                    </a>
-                    <a href="/shinhanbank/pages/vi/dieu-khoan-su-dung.html" class="hamburger-menu-item">
-                        <i class="fas fa-gavel"></i>
-                        <span>Điều Khoản Sử Dụng</span>
-                    </a>
-                    <a href="/shinhanbank/pages/vi/support-center.html" class="hamburger-menu-item">
-                        <i class="fas fa-headset"></i>
-                        <span>Liên Hệ</span>
-                    </a>
-                </div>
-            </div>
-        </div>
-    </nav>
-
-    <!-- Overlay for hamburger menu -->
-    <div class="hamburger-overlay" id="hamburgerOverlay" onclick="toggleHamburgerMenu()"></div>
-
-    <!-- Banner Carousel -->
+                    <a href="/shinhanbank/pages/vi/gioi-thieu.html" cla    <!-- Banner Carousel -->
     <div class="banner-carousel" role="region" aria-label="Promotional Carousel">
         <div class="banner-slide active">
-            <img data-src="https://shinhan.com.vn/public/uploads/personal/2024/RLD/2024---RLD---SOHO-operation-Loan---banner.jpg" alt="SOHO Operation Loan" class="lazy" loading="lazy">
+            <img src="https://shinhan.com.vn/public/uploads/personal/2024/RLD/2024---RLD---SOHO-operation-Loan---banner.jpg" alt="SOHO Operation Loan">
             <div class="banner-text">
                 <h1>Đăng Ký Vay Tín Chấp</h1>
                 <p>Thủ tục đơn giản - Phê duyệt nhanh chóng</p>
             </div>
         </div>
         <div class="banner-slide">
-            <img data-src="https://shinhan.com.vn/public/uploads/personal/2025/RLD/2025.01_RLD_Unsecured--Loan_Baneer.jpg" alt="Unsecured Loan" class="lazy" loading="lazy">
+            <img src="https://shinhan.com.vn/public/uploads/personal/2025/RLD/2025.01_RLD_Unsecured--Loan_Baneer.jpg" alt="Unsecured Loan">
             <div class="banner-text">
                 <h1>Tài chính linh hoạt</h1>
                 <p>Ước mơ trong tầm tay</p>
             </div>
         </div>
         <div class="banner-slide">
-            <img data-src="https://shinhan.com.vn/public/uploads/personal/2022/DIGITAL%20%20PERSONAL%20LOAN/20220624_DIGITAL%20CONSUMER%20LOAN_%20BANNER.jpg" alt="Digital Consumer Loan" class="lazy">
+            <img src="https://shinhan.com.vn/public/uploads/personal/2022/DIGITAL%20%20PERSONAL%20LOAN/20220624_DIGITAL%20CONSUMER%20LOAN_%20BANNER.jpg" alt="Digital Consumer Loan">
             <div class="banner-text">
                 <h1>Khoản vay nhanh</h1>
                 <p>Hiện thực hóa mọi khát vọng</p>
             </div>
         </div>
         <div class="banner-slide">
-            <img data-src="https://shinhan.com.vn/public/uploads/personal/2025/RLD/2025.01_RLD_Car-Loan_Baneer-1.jpg" alt="Car Loan" class="lazy">
+            <img src="https://shinhan.com.vn/public/uploads/personal/2025/RLD/2025.01_RLD_Car-Loan_Baneer-1.jpg" alt="Car Loan">
             <div class="banner-text">
                 <h1>Hỗ trợ tài chính</h1>
                 <p>Cùng bạn vươn tới tương lai</p>
             </div>
         </div>
         <div class="dots">
-            <span class="dot active" onclick="goToSlide(0)" tabindex="0" onkeydow        <!-- Error Summary Alert -->
-        <div id="errorSummaryAlert" class="alert alert-danger" style="display: none; margin-bottom: 20px; padding: 15px; border-radius: 8px; background-color: #fee; border: 2px solid #e53e3e;">
-            <div style="display: flex; align-items: center; gap: 12px;">
-                <i class="fas fa-exclamation-triangle" style="font-size: 24px; color: #e53e3e;"></i>
-                <div style="flex: 1;">
-                    <h4 style="margin: 0 0 8px 0; color: #c53030; font-size: 16px; font-weight: 600;">
-                        ⚠️ Vui lòng kiểm tra thông tin
-                    </h4>
-                    <p id="errorSummaryText" style="margin: 0; color: #742a2a; font-size: 14px;"></p>
-                    <ul id="errorSummaryList" style="margin: 8px 0 0 20px; color: #742a2a; font-size: 13px;"></ul>
-                </div>
-                <button type="button" onclick="document.getElementById('errorSummaryAlert').style.display='none'" style="background: none; border: none; font-size: 24px; color: #c53030; cursor: pointer; padding: 0; line-height: 1;">&times;</button>
+            <span class="dot active" onclick="goToSlide(0)" tabindex="0" onkeydown="if(event.key === 'Enter') goToSlide(0)"></span>
+            <span class="dot" onclick="goToSlide(1)" tabindex="0" onkeydown="if(event.key === 'Enter') goToSlide(1)"></span>
+            <span class="dot" onclick="goToSlide(2)" tabindex="0" onkeydown="if(event.key === 'Enter') goToSlide(2)"></span>
+            <span class="dot" onclick="goToSlide(3)" tabindex="0" onkeydown="if(event.key === 'Enter') goToSlide(3)"></span>
+        </div>
+    </div>
+
+    <!-- Error Summary Alert -->
+    <div id="errorSummaryAlert" class="alert alert-danger" style="display: none; margin-bottom: 20px; padding: 15px; border-radius: 8px; background-color: #fee; border: 2px solid #e53e3e;">
+        <div style="display: flex; align-items: center; gap: 12px;">
+            <i class="fas fa-exclamation-triangle" style="font-size: 24px; color: #e53e3e;"></i>
+            <div style="flex: 1;">
+                <h4 style="margin: 0 0 8px 0; color: #c53030; font-size: 16px; font-weight: 600;">
+                    ⚠️ Vui lòng kiểm tra thông tin
+                </h4>
+                <p id="errorSummaryText" style="margin: 0; color: #742a2a; font-size: 14px;"></p>
+                <ul id="errorSummaryList" style="margin: 8px 0 0 20px; color: #742a2a; font-size: 13px;"></ul>
+            </div>
+            <button type="button" onclick="document.getElementById('errorSummaryAlert').style.display='none'" style="background: none; border: none; font-size: 24px; color: #c53030; cursor: pointer; padding: 0; line-height: 1;">&times;</button>
+        </div>
+    </div>
+
+    <form id="registrationForm" onsubmit="handleSubmit(event)" novalidate>
+        <input type="hidden" id="csrf" name="_csrf" value="mock-csrf-token">
             </div>
         </div>
 
@@ -2570,15 +2554,12 @@
                     // Đã hoàn thành step8, chuyển đến step5
                     showSecureAlert('Bạn đã hoàn thành đăng ký vay. Đang chuyển đến trang thông tin khoản vay...', 'info');
                     setTimeout(() => {
-                        window.location.href = '/shinhanbank/pages/vi/step5.html';
-                    }, 2000);
-                    return;
-                }
-                
-                if (currentStep > 1) {
-                    // Đang trong quá trình đăng ký, chuyển đến step hiện tại
-                    const stepUrl = `/shinhanbank/pages/vi/step${currentStep}.html`;
-                    showSecureAlert(`Bạn đang ở bước ${currentStep} trong quá trình đăng ký. Đang chuyển đến bước tiếp theo...`, 'info');
+                        window.location.href = '/s        function updateBanner() {
+            const slides = document.querySelectorAll('.banner-slide');
+            const dots = document.querySelectorAll('.dot');
+            slides.forEach((slide, i) => slide.classList.toggle('active', i === bannerIndex));
+            dots.forEach((dot, i) => dot.classList.toggle('active', i === bannerIndex));
+        } ${currentStep} trong quá trình đăng ký. Đang chuyển đến bước tiếp theo...`, 'info');
                     setTimeout(() => {
                         window.location.href = stepUrl;
                     }, 2000);
