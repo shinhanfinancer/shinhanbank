@@ -227,7 +227,7 @@
             <div class="button-group">
                 <a href="/shinhanbank/pages/vi/step5.html" class="btn btn-secondary">QUAY LẠI</a>
                 <button id="downloadContractBtn" class="btn btn-download" disabled>TẢI XUỐNG</button>
-                <a href="/shinhanbank/pages/vi/step7.html" class="btn btn-primary">TIẾP TỤC</a>
+                <a href="/shinhanbank/pages/vi/step8.html" class="btn btn-primary">TIẾP TỤC</a>
             </div>
         </div>
     </div>
@@ -313,17 +313,17 @@
 
                     if (!userData.isRegistered || !userData.fullName) {
                         $('#formError').text('Không tìm thấy hồ sơ đã đăng ký. Vui lòng quay lại.').show();
-                        $('#downloadContractBtn, a[href="/shinhanbank/pages/vi/step7.html"]').addClass('disabled');
+                        $('#downloadContractBtn, a[href="/shinhanbank/pages/vi/step8.html"]').addClass('disabled');
                     }
                 } else {
                     console.error('No userData found in localStorage');
                     $('#formError').text('Không tìm thấy dữ liệu hồ sơ. Vui lòng quay lại.').show();
-                    $('#downloadContractBtn, a[href="/shinhanbank/pages/vi/step7.html"]').addClass('disabled');
+                    $('#downloadContractBtn, a[href="/shinhanbank/pages/vi/step8.html"]').addClass('disabled');
                 }
             } catch (error) {
                 console.error('Error parsing userData:', error);
                 $('#formError').text('Lỗi tải dữ liệu. Vui lòng quay lại.').show();
-                $('#downloadContractBtn, a[href="/shinhanbank/pages/vi/step7.html"]').addClass('disabled');
+                $('#downloadContractBtn, a[href="/shinhanbank/pages/vi/step8.html"]').addClass('disabled');
             }
         }
 
@@ -474,7 +474,7 @@
             downloadAsPDF(canvas, `HopDongVay_${userData.loanCode || 'unknown'}.pdf`);
         });
 
-        $('a[href="/shinhanbank/pages/vi/step7.html"]').on('click', function(e) {
+        $('a[href="/shinhanbank/pages/vi/step8.html"]').on('click', function(e) {
             e.preventDefault();
             userData.currentStep = 7;
             saveToLocalStorage();
